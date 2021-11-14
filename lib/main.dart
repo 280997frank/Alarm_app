@@ -120,6 +120,14 @@ class _JudulState extends State<Judul> {
   }
 
   void _setAlarm() {
+    int diff = dateTime.difference(DateTime.now()).inSeconds;
+    print(diff);
+
+    if(diff <= -1) {
+      print(DateTime.now());
+      dateTime = DateTime.now();
+    }
+
     setState(() {
       Alarm alarm = new Alarm(dateTime, false);
       alarms.add(alarm);

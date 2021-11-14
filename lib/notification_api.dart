@@ -29,7 +29,7 @@ class NotificationApi {
     if (alarm) {
       var iosDetails = new IOSNotificationDetails();
       var generalNotification = new NotificationDetails(iOS: iosDetails);
-      await localNotification.schedule(0, 'Notif', 'ini body', clock, generalNotification);
+      await localNotification.schedule(0, 'Alarm', 'Segera Matikan Alarm', clock, generalNotification);
     }
 
     return clock;

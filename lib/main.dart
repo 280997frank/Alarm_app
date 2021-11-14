@@ -95,7 +95,7 @@ class _JudulState extends State<Judul> {
       }
       if (stopwatch) {
         int diff = item.clock.difference(DateTime.now()).inSeconds;
-        if ( diff == -1) {
+        if ( diff <= -1) {
           stopwatch = false;
           setState(() {
             item.active = false;
@@ -108,23 +108,15 @@ class _JudulState extends State<Judul> {
   }
 
   void _addAlarm(DateTime date) {
-    print(date);
       setState(() {
-        if (date == null) {
-          dateTime = DateTime.now();
-
-          return;
-        }
         dateTime = date;
       });
   }
 
   void _setAlarm() {
     int diff = dateTime.difference(DateTime.now()).inSeconds;
-    print(diff);
 
     if(diff <= -1) {
-      print(DateTime.now());
       dateTime = DateTime.now();
     }
 

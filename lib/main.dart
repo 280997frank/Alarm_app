@@ -3,15 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:alarm_app/notification_api.dart';
-import 'package:whatsapp_unilink/whatsapp_unilink.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:alarm_app/alarm.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_otp/flutter_otp.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,35 +55,17 @@ class _JudulState extends State<Judul> {
   String button = 'start';
   final alarms = <Alarm>[];
 
-  launchWhatsApp() async {
-    final link = WhatsAppUnilink(
-      phoneNumber: '+6281375151332',
-      text: "Hay sayang",
-    );
-    // Convert the WhatsAppUnilink instance to a string.
-    // Use either Dart's string interpolation or the toString() method.
-    // The "launch" method is part of "url_launcher".
-    await launch('$link');
-  }
-
-  // Future _showNotification() async {
-  //   var iosDetails = new IOSNotificationDetails();
-  //   var generalNotification = new NotificationDetails(iOS: iosDetails);
-  //   await localNotification.show(0, 'Notif', 'ini body', generalNotification);
-  // }
-
   void _activeButton(Alarm item, bool value) async {
     setState(() {
       item.active = value;
     });
 
-    Future<DateTime> clock = NotificationApi.showNotification(item.clock, value);
+    NotificationApi.showNotification(item.clock, value);
 
     startAndStop = false;
     stopwatch = true;
     Timer.periodic(new Duration(seconds: 1), (timer) {
       if (!stopwatch) {
-        // _notifications.show(0, 'Alarm', 'alarm berbunyi', _notificationDetails(), payload: 'segera matikan alarm');
         timer.cancel();
       }
       if (stopwatch) {
@@ -100,8 +75,6 @@ class _JudulState extends State<Judul> {
           setState(() {
             item.active = false;
           });
-          // launchWhatsApp();
-          // NotificationApi.showNotification(alarm);
         }
       }
     });

@@ -24,14 +24,21 @@ class NotificationApi {
   }
 
 
-  static Future<DateTime> showNotification(DateTime clock, bool alarm) async {
+  static Future<bool> showNotification(DateTime clock, bool alarm) async {
+    bool isDifference = clock.difference(DateTime.now()).inMilliseconds <= -1;
+    if (isDifference) {
+      return false;
+    }
+
     if (alarm) {
       var iosDetails = new IOSNotificationDetails();
       var generalNotification = new NotificationDetails(iOS: iosDetails);
       await localNotification.schedule(0, 'Alarm', 'Segera Matikan Alarm', clock, generalNotification);
+
+      return true;
     }
 
-    return clock;
+    return false;
   }
 }
 

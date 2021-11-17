@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:alarm_app/alarm.dart';
 
 class NotificationApi {
   static FlutterLocalNotificationsPlugin localNotification;
@@ -24,21 +25,14 @@ class NotificationApi {
   }
 
 
-  static Future<bool> showNotification(DateTime clock, bool alarm) async {
-    bool isDifference = clock.difference(DateTime.now()).inMilliseconds <= -1;
-    if (isDifference) {
-      return false;
-    }
-
-    if (alarm) {
+  static Future<void> showNotification(Alarm alarm) async {
+    print('ini alarm ' + alarm.active.toString());
+    if (alarm.active) {
       var iosDetails = new IOSNotificationDetails();
       var generalNotification = new NotificationDetails(iOS: iosDetails);
-      await localNotification.schedule(0, 'Alarm', 'Segera Matikan Alarm', clock, generalNotification);
-
-      return true;
+      await localNotification.schedule(
+          alarm.id, 'Alarm', 'Segera Matikan Alarm', alarm.clock, generalNotification);
     }
-
-    return false;
   }
 }
 

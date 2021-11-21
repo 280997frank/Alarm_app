@@ -36,6 +36,7 @@ dependencies:
   flutter_email_sender: ^4.0.0
   mailer: ^2.6.1
   flutter_otp: ^0.3.2
+  http: ^0.11.0
 
 dev_dependencies:
   flutter_test:

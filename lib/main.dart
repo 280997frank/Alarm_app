@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:alarm_app/view/alarmView.dart';
+import 'package:alarm_app/view/worldClockView.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:alarm_app/notification_api.dart';
@@ -54,7 +55,7 @@ class _JudulState extends State<Judul> {
           index: _selectedNavbar,
           children: [
             Container(
-              color: Colors.red,
+              child: WorldClockView(),
             ),
             Container(
               child: AlarmView(),
